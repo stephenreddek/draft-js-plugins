@@ -1,22 +1,25 @@
-import { Modifier, EditorState } from 'draft-js';
-import getSearchText from '../utils/getSearchText';
-import emojiList from '../utils/emojiList';
-import convertShortNameToUnicode from '../utils/convertShortNameToUnicode';
+import { Modifier, EditorState } from "draft-js";
+import getSearchText from "../utils/getSearchText";
+import emojiList from "../utils/emojiList";
+import convertShortNameToUnicode from "../utils/convertShortNameToUnicode";
 
 // This modifier can inserted emoji to current cursor position (with replace selected fragment),
 // or replaced emoji shortname like ":thumbsup:". Behavior determined by `Mode` parameter.
 const Mode = {
-  INSERT: 'INSERT', // insert emoji to current cursor position
-  REPLACE: 'REPLACE', // replace emoji shortname
+  INSERT: "INSERT", // insert emoji to current cursor position
+  REPLACE: "REPLACE" // replace emoji shortname
 };
 
 const addEmoji = (editorState, emojiShortName, mode = Mode.INSERT) => {
-  const unicode = emojiList.list[emojiShortName][0];
+  const unicode = emojiList.list[emojiShortName];
   const emoji = convertShortNameToUnicode(unicode);
 
   const contentState = editorState.getCurrentContent();
-  const contentStateWithEntity = contentState
-    .createEntity('emoji', 'IMMUTABLE', { emojiUnicode: emoji });
+  const contentStateWithEntity = contentState.createEntity(
+    "emoji",
+    "IMMUTABLE",
+    { emojiUnicode: emoji }
+  );
   const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
   const currentSelectionState = editorState.getSelection();
 
@@ -30,7 +33,7 @@ const addEmoji = (editorState, emojiShortName, mode = Mode.INSERT) => {
       const afterRemovalContentState = Modifier.removeRange(
         contentState,
         currentSelectionState,
-        'backward'
+        "backward"
       );
 
       // deciding on the position to insert emoji
@@ -41,7 +44,7 @@ const addEmoji = (editorState, emojiShortName, mode = Mode.INSERT) => {
         targetSelection,
         emoji,
         null,
-        entityKey,
+        entityKey
       );
 
       emojiEndPos = targetSelection.getAnchorOffset();
@@ -57,7 +60,7 @@ const addEmoji = (editorState, emojiShortName, mode = Mode.INSERT) => {
       // Get the selection of the :emoji: search text
       const emojiTextSelection = currentSelectionState.merge({
         anchorOffset: begin,
-        focusOffset: end,
+        focusOffset: end
       });
 
       emojiAddedContent = Modifier.replaceText(
@@ -85,16 +88,19 @@ const addEmoji = (editorState, emojiShortName, mode = Mode.INSERT) => {
     emojiAddedContent = Modifier.insertText(
       emojiAddedContent,
       emojiAddedContent.getSelectionAfter(),
-      ' ',
+      " "
     );
   }
 
   const newEditorState = EditorState.push(
     editorState,
     emojiAddedContent,
-    'insert-emoji',
+    "insert-emoji"
   );
-  return EditorState.forceSelection(newEditorState, emojiAddedContent.getSelectionAfter());
+  return EditorState.forceSelection(
+    newEditorState,
+    emojiAddedContent.getSelectionAfter()
+  );
 };
 
 export default addEmoji;

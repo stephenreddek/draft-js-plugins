@@ -1,4 +1,4 @@
-import emojiList from './emojiList';
+import emojiList from "./emojiList";
 
 const mapUnicode = () => {
   const unicodes = {};
@@ -6,12 +6,10 @@ const mapUnicode = () => {
   for (const shortname in emojiList.list) {
     // eslint-disable-next-line no-continue, no-prototype-builtins
     if (!emojiList.list.hasOwnProperty(shortname)) {
-      continue;// eslint-disable-line no-continue
+      continue; // eslint-disable-line no-continue
     }
 
-    for (let i = 0, len = emojiList.list[shortname].length; i < len; i += 1) {
-      unicodes[emojiList.list[shortname][i]] = shortname;
-    }
+    unicodes[emojiList.list[shortname]] = shortname;
   }
 
   return unicodes;
