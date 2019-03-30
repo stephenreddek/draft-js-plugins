@@ -17,9 +17,9 @@ import attachImmutableEntitiesToEmojis from './modifiers/attachImmutableEntities
 import defaultPositionSuggestions from './utils/positionSuggestions';
 import emojiList from './utils/emojiList';
 
-const defaultImagePath = '//cdn.jsdelivr.net/emojione/assets/svg/';
-const defaultImageType = 'svg';
-const defaultCacheBustParam = '?v=2.2.7';
+const defaultImagePath = '//cdn.jsdelivr.net/npm/emojione-assets@3.1.0/png/128/';
+const defaultImageType = 'png';
+const defaultCacheBustParam = '?v=4.5.0';
 
 // TODO activate/deactivate different the conversion or search part
 

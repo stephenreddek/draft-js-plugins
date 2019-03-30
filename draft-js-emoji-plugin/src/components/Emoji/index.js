@@ -16,14 +16,14 @@ const Emoji = ({ theme = {}, cacheBustParam, imagePath, imageType, className, de
     );
   } else {
     // short name to image url code steal from emojione source code
-    const shortNameForImage = emojione.emojioneList[shortName].unicode[emojione.emojioneList[shortName].unicode.length - 1];
-    const backgroundImage = `url(${imagePath}${shortNameForImage}.${imageType}${cacheBustParam})`;
+    const codepointsForImage = emojione.emojioneList[shortName].fname;
+    const backgroundImage = `url(${imagePath}${codepointsForImage}.${imageType}${cacheBustParam})`;
     const combinedClassName = unionClassNames(theme.emoji, className);
 
     emojiDisplay = (
       <span
         className={combinedClassName}
-        title={emojione.toShort(decoratedText)}
+        title={shortName}
         style={{ backgroundImage }}
       >
         {props.children}

@@ -9,9 +9,7 @@ const mapUnicode = () => {
       continue;// eslint-disable-line no-continue
     }
 
-    for (let i = 0, len = emojiList.list[shortname].length; i < len; i += 1) {
-      unicodes[emojiList.list[shortname][i]] = shortname;
-    }
+    unicodes[emojiList.list[shortname]] = shortname;
   }
 
   return unicodes;

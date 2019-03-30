@@ -41,12 +41,12 @@ export default class Entry extends Component {
 
     let emojiDisplay = null;
     if (useNativeArt === true) {
-      const unicode = emojiList.list[this.props.emoji][0];
+      const unicode = emojiList.list[this.props.emoji];
       emojiDisplay = convertShortNameToUnicode(unicode);
     } else {
       // short name to image url code steal from emojione source code
-      const shortNameForImage = emojione.emojioneList[this.props.emoji].unicode[emojione.emojioneList[this.props.emoji].unicode.length - 1];
-      const fullImagePath = `${imagePath}${shortNameForImage}.${imageType}${cacheBustParam}`;
+      const codePointsForImage = emojione.emojioneList[this.props.emoji].fname;
+      const fullImagePath = `${imagePath}${codePointsForImage}.${imageType}${cacheBustParam}`;
       emojiDisplay = (
         <img
           src={fullImagePath}

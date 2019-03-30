@@ -66,8 +66,8 @@ export default class Entry extends Component {
       emojiDisplay = convertShortNameToUnicode(unicode);
     } else {
       // short name to image url code steal from emojione source code
-      const shortNameForImage = emojione.emojioneList[emoji].unicode[emojione.emojioneList[emoji].unicode.length - 1];
-      const fullImagePath = `${imagePath}${shortNameForImage}.${imageType}${cacheBustParam}`;
+      const codePointsForImage = emojione.emojioneList[emoji].fname;
+      const fullImagePath = `${imagePath}${codePointsForImage}.${imageType}${cacheBustParam}`;
       emojiDisplay = (
         <img
           src={fullImagePath}
