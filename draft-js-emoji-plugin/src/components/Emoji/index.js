@@ -16,7 +16,7 @@ const Emoji = ({ theme = {}, cacheBustParam, imagePath, imageType, className, de
     );
   } else {
     // short name to image url code steal from emojione source code
-    const codepointsForImage = emojione.emojioneList[shortName].fname;
+    const codepointsForImage = emojione.emojioneList[shortName].uc_base;
     const backgroundImage = `url(${imagePath}${codepointsForImage}.${imageType}${cacheBustParam})`;
     const combinedClassName = unionClassNames(theme.emoji, className);
 
