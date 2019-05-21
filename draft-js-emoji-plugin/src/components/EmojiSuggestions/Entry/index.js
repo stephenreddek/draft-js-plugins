@@ -38,14 +38,15 @@ export default class Entry extends Component {
   render() {
     const { theme = {}, imagePath, imageType, cacheBustParam, useNativeArt, isFocused, id } = this.props;
     const className = isFocused ? theme.emojiSuggestionsEntryFocused : theme.emojiSuggestionsEntry;
+    const emojiListItem = emojione.emojioneList[this.props.emoji];
 
     let emojiDisplay = null;
-    if (useNativeArt === true) {
+    if (useNativeArt === true || emojiListItem == null) {
       const unicode = emojiList.list[this.props.emoji];
       emojiDisplay = convertShortNameToUnicode(unicode);
     } else {
       // short name to image url code steal from emojione source code
-      const codePointsForImage = emojione.emojioneList[this.props.emoji].uc_base;
+      const codePointsForImage = emojiListItem.uc_base;
       const fullImagePath = `${imagePath}${codePointsForImage}.${imageType}${cacheBustParam}`;
       emojiDisplay = (
         <img

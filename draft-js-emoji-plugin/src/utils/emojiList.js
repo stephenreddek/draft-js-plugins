@@ -1,6 +1,6 @@
 import emojione from 'emojione';
 
-emojione.greedyMatch = true;
+emojione.greedyMatch = false;
 
 const newEmojiListWithOutPriorityList = (priorityList) => {
   const list = {};

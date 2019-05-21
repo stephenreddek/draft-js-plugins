@@ -59,14 +59,15 @@ export default class Entry extends Component {
   render() {
     const { cacheBustParam, imagePath, imageType, theme = {}, emoji, useNativeArt } = this.props;
     const { isFocused } = this.state;
+    const emojiListItem = emojione.emojioneList[emoji];
 
     let emojiDisplay = null;
-    if (useNativeArt === true) {
+    if (useNativeArt === true || emojiListItem == null) {
       const unicode = emojiList.list[emoji][0];
       emojiDisplay = convertShortNameToUnicode(unicode);
     } else {
       // short name to image url code steal from emojione source code
-      const codePointsForImage = emojione.emojioneList[emoji].uc_base;
+      const codePointsForImage = emojiListItem.uc_base;
       const fullImagePath = `${imagePath}${codePointsForImage}.${imageType}${cacheBustParam}`;
       emojiDisplay = (
         <img

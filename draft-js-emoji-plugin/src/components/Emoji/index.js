@@ -4,9 +4,10 @@ import emojione from 'emojione';
 
 const Emoji = ({ theme = {}, cacheBustParam, imagePath, imageType, className, decoratedText, useNativeArt, ...props }) => {
   const shortName = emojione.toShort(decoratedText);
+  const emojiListItem = emojione.emojioneList[shortName];
 
   let emojiDisplay = null;
-  if (useNativeArt === true) {
+  if (useNativeArt === true || emojiListItem == null) {
     emojiDisplay = (
       <span
         title={emojione.toShort(decoratedText)}
@@ -16,7 +17,7 @@ const Emoji = ({ theme = {}, cacheBustParam, imagePath, imageType, className, de
     );
   } else {
     // short name to image url code steal from emojione source code
-    const codepointsForImage = emojione.emojioneList[shortName].uc_base;
+    const codepointsForImage = emojiListItem.uc_base;
     const backgroundImage = `url(${imagePath}${codepointsForImage}.${imageType}${cacheBustParam})`;
     const combinedClassName = unionClassNames(theme.emoji, className);
 
