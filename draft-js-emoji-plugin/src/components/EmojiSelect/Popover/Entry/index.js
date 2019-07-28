@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import emojione from 'emojione';
+import EmojiToolkit from 'emoji-toolkit';
 import emojiList from '../../../../utils/emojiList';
 import convertShortNameToUnicode from '../../../../utils/convertShortNameToUnicode';
 
@@ -59,7 +59,7 @@ export default class Entry extends Component {
   render() {
     const { cacheBustParam, imagePath, imageType, theme = {}, emoji, useNativeArt } = this.props;
     const { isFocused } = this.state;
-    const emojiListItem = emojione.emojioneList[emoji];
+    const emojiListItem = EmojiToolkit.emojiList[emoji];
 
     let emojiDisplay = null;
     if (useNativeArt === true || emojiListItem == null) {

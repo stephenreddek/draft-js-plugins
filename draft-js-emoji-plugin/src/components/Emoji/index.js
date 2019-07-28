@@ -1,16 +1,16 @@
 import React from 'react';
 import unionClassNames from 'union-class-names';
-import emojione from 'emojione';
+import EmojiToolkit from 'emoji-toolkit';
 
 const Emoji = ({ theme = {}, cacheBustParam, imagePath, imageType, className, decoratedText, useNativeArt, ...props }) => {
-  const shortName = emojione.toShort(decoratedText);
-  const emojiListItem = emojione.emojioneList[shortName];
+  const shortName = EmojiToolkit.toShort(decoratedText);
+  const emojiListItem = EmojiToolkit.emojiList[shortName];
 
   let emojiDisplay = null;
   if (useNativeArt === true || emojiListItem == null) {
     emojiDisplay = (
       <span
-        title={emojione.toShort(decoratedText)}
+        title={EmojiToolkit.toShort(decoratedText)}
       >
         {props.children}
       </span>
