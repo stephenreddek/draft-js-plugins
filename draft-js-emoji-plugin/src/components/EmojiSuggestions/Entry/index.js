@@ -2,7 +2,7 @@ import React, {
   // PropTypes,
   Component,
 } from 'react';
-import emojione from 'emojione';
+import EmojiToolkit from 'emoji-toolkit';
 import emojiList from '../../../utils/emojiList';
 import convertShortNameToUnicode from '../../../utils/convertShortNameToUnicode';
 
@@ -38,7 +38,7 @@ export default class Entry extends Component {
   render() {
     const { theme = {}, imagePath, imageType, cacheBustParam, useNativeArt, isFocused, id } = this.props;
     const className = isFocused ? theme.emojiSuggestionsEntryFocused : theme.emojiSuggestionsEntry;
-    const emojiListItem = emojione.emojioneList[this.props.emoji];
+    const emojiListItem = EmojiToolkit.emojiList[this.props.emoji];
 
     let emojiDisplay = null;
     if (useNativeArt === true || emojiListItem == null) {
