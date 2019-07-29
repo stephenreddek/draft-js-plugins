@@ -1,10 +1,23 @@
+/* eslint-disable no-continue */
+/* eslint-disable no-restricted-syntax */
 import React from 'react';
 import unionClassNames from 'union-class-names';
 import EmojiToolkit from 'emoji-toolkit';
 
 const Emoji = ({ theme = {}, cacheBustParam, imagePath, imageType, className, decoratedText, useNativeArt, ...props }) => {
   const shortName = EmojiToolkit.toShort(decoratedText);
-  const emojiListItem = EmojiToolkit.emojiList[shortName];
+  let emojiListItem = EmojiToolkit.emojiList[shortName];
+
+  // Ripped from emoji toolkit source `shortnameToImage`
+  if (!emojiListItem) {
+    for (const emoji in EmojiToolkit.emojiList) {
+      // eslint-disable-next-line no-prototype-builtins
+      if (!EmojiToolkit.emojiList.hasOwnProperty(emoji) || (emoji === '')) continue;
+      if (EmojiToolkit.emojiList[emoji].shortnames.indexOf(shortName) === -1) continue;
+      emojiListItem = EmojiToolkit.emojiList[emoji];
+      break;
+    }
+  }
 
   let emojiDisplay = null;
   if (useNativeArt === true || emojiListItem == null) {

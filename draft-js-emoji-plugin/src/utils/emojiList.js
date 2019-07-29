@@ -6,7 +6,7 @@ const newEmojiListWithOutPriorityList = (priorityList) => {
     if (priorityList.hasOwnProperty(key)) { // eslint-disable-line no-prototype-builtins
       continue; // eslint-disable-line no-continue
     }
-    list[key] = EmojiToolkit.emojiList[key].uc_output;
+    list[key] = EmojiToolkit.emojiList[key].uc_full;
   }
 
   return { ...priorityList, ...list };

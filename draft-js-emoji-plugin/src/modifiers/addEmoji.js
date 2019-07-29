@@ -1,7 +1,10 @@
+/* eslint-disable no-continue */
+/* eslint-disable no-restricted-syntax */
 import { Modifier, EditorState } from 'draft-js';
 import getSearchText from '../utils/getSearchText';
 import emojiList from '../utils/emojiList';
 import convertShortNameToUnicode from '../utils/convertShortNameToUnicode';
+import EmojiToolkit from 'emoji-toolkit';
 
 // This modifier can inserted emoji to current cursor position (with replace selected fragment),
 // or replaced emoji shortname like ":thumbsup:". Behavior determined by `Mode` parameter.
@@ -11,7 +14,19 @@ const Mode = {
 };
 
 const addEmoji = (editorState, emojiShortName, mode = Mode.INSERT) => {
-  const unicode = emojiList.list[emojiShortName];
+  let unicode = emojiList.list[emojiShortName];
+
+  // Ripped from emoji toolkit source `shortnameToImage`
+  if (!unicode) {
+    for (const emoji in EmojiToolkit.emojiList) {
+      // eslint-disable-next-line no-prototype-builtins
+      if (!EmojiToolkit.emojiList.hasOwnProperty(emoji) || (emoji === '')) continue;
+      if (EmojiToolkit.emojiList[emoji].shortnames.indexOf(emojiShortName) === -1) continue;
+      unicode = emojiList.list[emoji];
+      break;
+    }
+  }
+
   const emoji = convertShortNameToUnicode(unicode);
 
   const contentState = editorState.getCurrentContent();
