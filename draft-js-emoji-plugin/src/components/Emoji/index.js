@@ -15,9 +15,16 @@ const Emoji = ({
   const shortName = emojione.toShort(decoratedText);
 
   let emojiDisplay = null;
-  if (useNativeArt === true) {
+  if (useNativeArt === true || emojiListItem == null) {
+    const combinedClassName = unionClassNames(theme.emoji, className);
+
     emojiDisplay = (
-      <span title={emojione.toShort(decoratedText)}>{props.children}</span>
+      <span
+        className={combinedClassName}
+        title={EmojiToolkit.toShort(decoratedText)}
+      >
+        {props.children}
+      </span>
     );
   } else {
     // short name to image url code steal from emojione source code
