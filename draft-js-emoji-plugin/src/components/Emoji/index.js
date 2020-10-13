@@ -19,10 +19,13 @@ const Emoji = ({ theme = {}, cacheBustParam, imagePath, imageType, className, de
     }
   }
 
+  const combinedClassName = unionClassNames(theme.emoji, className);
+
   let emojiDisplay = null;
   if (useNativeArt === true || emojiListItem == null) {
     emojiDisplay = (
       <span
+        className={combinedClassName}
         title={EmojiToolkit.toShort(decoratedText)}
       >
         {props.children}
@@ -32,7 +35,6 @@ const Emoji = ({ theme = {}, cacheBustParam, imagePath, imageType, className, de
     // short name to image url code steal from emojione source code
     const codepointsForImage = emojiListItem.uc_base;
     const backgroundImage = `url(${imagePath}${codepointsForImage}.${imageType}${cacheBustParam})`;
-    const combinedClassName = unionClassNames(theme.emoji, className);
 
     emojiDisplay = (
       <span
