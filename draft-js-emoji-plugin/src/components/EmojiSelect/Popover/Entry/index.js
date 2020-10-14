@@ -64,7 +64,13 @@ export default class Entry extends Component {
     let emojiDisplay = null;
     if (useNativeArt === true || emojiListItem == null) {
       const unicode = emojiList.list[emoji][0];
-      emojiDisplay = convertShortNameToUnicode(unicode);
+      emojiDisplay = (
+        <span
+          className={theme.emojiSelectPopoverEntryIcon}
+        >
+          {convertShortNameToUnicode(unicode)}
+        </span>
+      );
     } else {
       // short name to image url code steal from emojione source code
       const codePointsForImage = emojiListItem.uc_base;
